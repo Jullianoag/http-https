@@ -18,74 +18,67 @@
 
 | Campo | Valor |
 |---|---|
-| Nome | [seu nome completo] |
-| RA | [seu RA] |
+| Nome | Julliano Angelotti Giacomini - Laryssa Flabio Ignacio |
+| RA | 242960 - 240274 |
 | Disciplina | Redes de Computadores |
-| Turma | [sua turma] |
-| Data | [data da realização] |
+| Turma | Turma A - Noite |
+| Data | 15/05 |
 | Fluxo | **A — Aluno com privilégio de administrador** |
-| SO utilizado | [Windows 10 / Windows 11] |
+| SO utilizado | Windows 10 |
 | Ferramenta de proxy | Fiddler Classic |
-| Navegador(es) | [Chrome / Edge / Firefox / ...] |
-| Decriptação HTTPS habilitada? | [sim / não] |
-| Certificado Fiddler instalado durante a atividade? | [sim / não] |
+| Navegador(es) | Chrome ] |
+| Decriptação HTTPS habilitada? | sim |
+| Certificado Fiddler instalado durante a atividade? | sim |
 
 ---
 
 ## Atividade 1 — Primeira captura
 
 ### Captura
-
-<!-- arraste a captura aqui: sessão de http://example.com com Request/Response Raw -->
+<img width="955" height="936" alt="Captura1" src="https://github.com/user-attachments/assets/7d833e0f-b811-4d4a-9004-a94d125cc8e5" />
 
 **Request-line:**
 
-```http
-[ex: GET / HTTP/1.1]
-```
+GET https://httpbingo.org/get HTTP/1.1
 
 **Status-line:**
 
-```http
-[ex: HTTP/1.1 200 OK]
-```
+HTTP/1.1 200 OK
 
 **Cabeçalhos do request:**
 
 | Cabeçalho | Função |
 |---|---|
-| [...] | [...] |
-| [...] | [...] |
-| [...] | [...] |
+| access-control-allow-credentials: true | Permite envio de cookies/auth em CORS |
+| access-control-allow-origin: * | Libera acesso para qualquer origem |
+| content-encoding: zstd | Resposta comprimida com Zstandard |
 
 **Resposta:**
 
 | Campo | Valor observado |
 |---|---|
-| `Content-Type` | [...] |
-| `Content-Length` ou `Transfer-Encoding` | [...] |
+| Content-Type | application/json; charset=utf-8 |
+| transfer-encoding | chunked |
 
 ---
 
 ## Atividade 2 — Anatomia de um GET
 
-### Captura
 
-<!-- arraste a captura aqui: Request Raw e Response JSON -->
+### Captura
+<img width="957" height="1052" alt="Captura2" src="https://github.com/user-attachments/assets/d7d64c04-7c37-4361-b927-1315ff566897" />
 
 **Request-line completa:**
 
-```http
-[colar aqui]
-```
+GET https://httpbingo.org/get?aluno=SEU_NOME&curso=redes HTTP/1.1
 
 **Cabeçalhos-chave:**
 
 | Cabeçalho | Valor |
 |---|---|
-| `Host` | [...] |
-| `User-Agent` | [...] |
-| `Accept` | [...] |
+| Host | httpbingo.org |
+| User-Agent | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 |
+| Accept | text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7 |
 
 **Campos do JSON de resposta:**
 
@@ -99,42 +92,35 @@
 
 **Resposta curta:** o que o campo `origin` representa? O `User-Agent` retornado coincide com o enviado?
 
-[resposta]
+Origin representa a origem do navegador e o user-agent representa o agente de texto do navegador
+
 
 ---
 
 ## Atividade 3 — POST e envio de formulário
 
 ### Captura
-
-<!-- arraste a captura aqui: POST para /post em Request Raw -->
+<img width="952" height="1031" alt="Captura3" src="https://github.com/user-attachments/assets/43e3c464-356f-46fb-8f9c-94d80ae46302" />
 
 **Request-line do POST:**
 
-```http
-[colar aqui]
-```
+POST https://httpbingo.org/post HTTP/1.1
 
 | Cabeçalho | Valor |
 |---|---|
-| `Content-Type` | [...] |
-| `Content-Length` | [...] |
+| Content-Type | application/x-www-form-urlencoded |
+| Content-Length | 129 |
 
 **Corpo do request:**
 
-```text
-[colar aqui]
-```
+custname=Julliano+&custtel=13974218808&custemail=julliano.ag%40gmail.com&size=small&topping=bacon&delivery=12%3A45&comments=teste
 
 **Campo `form` da resposta:**
 
-```json
-[colar trecho relevante]
-```
 
 **Resposta curta:** qual formato codifica o corpo? Qual aba mostra literalmente os bytes enviados: `WebForms` ou `Raw`?
 
-[resposta]
+Ele utiliza x-www-form-urlencoded, mostrado na raw
 
 ---
 
@@ -146,62 +132,63 @@
 
 | # | Método | URL | Status-line | Tamanho/body |
 |---|---|---|---|---|
-| 1 | GET | `https://http.aulasrede.com.br/status/200` | [...] | [...] |
-| 2 | GET | `https://http.aulasrede.com.br/redirect-to?status_code=301&url=/get` | [...] | [...] |
-| 3 | GET | `https://http.aulasrede.com.br/status/404` | [...] | [...] |
-| 4 | GET | `https://http.aulasrede.com.br/status/500` | [...] | [...] |
+| 1 | POST | https://httpbingo.org/status/200 | 200 | Sem body |
+| 2 | GET | https://httpbingo.org/redirect-to?status_code=301&url=/get | 301 | sem body |
+| 3 | GET | https://httpbingo.org/status/404 | 404 | Sem body |
+| 4 | GET | https://httpbingo.org/status/500 | 500 | Sem body |
 
 **Resposta curta:** no `301`, qual cabeçalho informa o destino do redirecionamento?
 
-[resposta]
+
+Location: /get
 
 ---
 
 ## Atividade 5 — Cabeçalhos essenciais
 
 ### Captura
+<img width="955" height="1027" alt="Captura4" src="https://github.com/user-attachments/assets/795c18fd-374f-43d7-8421-aafdd68408f2" />
 
-<!-- arraste a captura aqui: Inspectors → Headers -->
 
 | Cabeçalho | Req/Resp | Valor capturado | Função |
 |---|---|---|---|
-| `Host` | [...] | [...] | [...] |
-| `User-Agent` | [...] | [...] | [...] |
-| `Accept` | [...] | [...] | [...] |
-| `Content-Type` | [...] | [...] | [...] |
-| `Content-Length` / `Transfer-Encoding` | [...] | [...] | [...] |
-| `Content-Encoding` | [...] | [...] | [...] |
-| `Set-Cookie` | [...] | [...] | [...] |
-| `Cache-Control` | [...] | [...] | [...] |
-| `Strict-Transport-Security` | [...] | [...] | [...] |
+| `Host` | Req | `http.aulasrede.com.br` | Indica o servidor de destino da requisição |
+| `User-Agent` | Req | `Mozilla/5.0 (...) Chrome/142.0.0.0 Safari/537.36` | Identifica navegador e sistema operacional do cliente |
+| `Accept` | Req | `text/html,application/xhtml+xml,...` | Informa os tipos de conteúdo aceitos pelo cliente |
+| `Content-Type` | Resp | `text/html; charset=utf-8` | Define o tipo de conteúdo retornado |
+| `Content-Length` / `Transfer-Encoding` | Resp | `Content-Length: ...` ou `Transfer-Encoding: chunked` | Define tamanho do corpo ou envio em partes |
+| `Content-Encoding` | Resp | `gzip`, `br` ou `zstd` | Indica compressão aplicada ao corpo |
+| `Set-Cookie` | Resp | `teste=1` | Cria/define cookie no navegador |
+| `Cache-Control` | Resp | `max-age=3600` | Define política de cache da resposta |
+| `Strict-Transport-Security` | Resp | `max-age=31536000` | Obriga uso de HTTPS por 1 ano |
 
 **Resposta curta:** qual é o papel de `Content-Encoding` e de `Strict-Transport-Security`?
-
-[resposta]
+Definir o formato de criptografia do conteudo, e o strict serve para obrigar o site a usar https
 
 ---
 
 ## Atividade 6 — HTTP vs HTTPS
 
 ### Captura — HTTP puro
+<img width="947" height="995" alt="Captura5" src="https://github.com/user-attachments/assets/af576aa3-77fc-414b-873b-28f3b0a957dd" />
 
-<!-- arraste a captura aqui: http://http.aulasrede.com.br/get com redirecionamento 301 para HTTPS -->
 
 ### Captura — HTTPS sem decriptação
+<img width="957" height="1052" alt="Captura6" src="https://github.com/user-attachments/assets/a05935af-e1ea-44f5-b478-3b0e045a39fe" />
 
-<!-- arraste a captura aqui: https://http.aulasrede.com.br/get sem decriptação -->
 
 ### Captura — HTTPS com decriptação
+<img width="952" height="1037" alt="Captura7" src="https://github.com/user-attachments/assets/125f019f-7ca4-4a8d-bde5-786e17fb5450" />
 
-<!-- arraste a captura aqui: https://http.aulasrede.com.br/get com decriptação -->
 
 | Situação | O que ficou visível? | O que ficou oculto? |
 |---|---|---|
-| HTTP puro | [...] | [...] |
-| HTTPS sem decriptação | [...] | [...] |
-| HTTPS com decriptação | [...] | [...] |
+| HTTP puro | request | response|
+| HTTPS sem decriptação | request | response |
+| HTTPS com decriptação | request e response| |
 
 **Resposta curta:** por que a decriptação HTTPS pelo Fiddler exige instalar um certificado raiz?
+Pois é a partir do certificado que é feita a validação e decriptação do conteudo do http
 
 [resposta]
 
@@ -210,18 +197,18 @@
 ## Atividade 7 — Cookies e sessão
 
 ### Captura
+<img width="959" height="1053" alt="Captura8" src="https://github.com/user-attachments/assets/760efcc1-f1cf-4ce7-a8a6-5de0cc8d1fcd" />
 
-<!-- arraste a captura aqui: sequência cookies/set e cookies -->
 
 | # | URL | `Set-Cookie` recebido | `Cookie` enviado |
 |---|---|---|---|
-| 1 | `/cookies/set?...` | [...] | [...] |
-| 2 | `/cookies` | [...] | [...] |
-| 3 | `/cookies` após recarregar | [...] | [...] |
+| 1 | /cookies/set?... | disciplina=redes, professor=claudio | — |
+| 2 | /cookies | — | disciplina=redes; professor=claudio |
+| 3 | /cookies após recarregar | — | disciplina=redes; professor=claudio |
 
 **Resposta curta:** `Set-Cookie` apareceu em toda requisição ou apenas quando o servidor definiu/atualizou cookies? Quais atributos foram observados?
 
-[resposta]
+Set-Cookie apareceu apenas quando o servidor definiu/atualizou cookies. Os atributos observados incluíram nome/valor do cookie e, em alguns casos, Path, Expires, Max-Age, HttpOnly, Secure e SameSite.
 
 ---
 
